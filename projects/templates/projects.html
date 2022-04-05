@@ -1,0 +1,18 @@
+{% extends "base-nav.html" %}
+{% load static %}
+
+{% block title %}{{ request.username }}'s PROJECTS{% endblock %}
+
+{% block content %}
+<div>
+    {% for project in projects  %}
+    <div id="project-{{project.pk}}">
+        <h1><span hx-get="{% url 'projects:expanded_project' project.pk %}"
+            hx-trigger="click"
+            hx-target="#project-{{project.pk}}"
+            hx-swap="outerHTML"
+            >+</span>{{project.name}}</h1>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

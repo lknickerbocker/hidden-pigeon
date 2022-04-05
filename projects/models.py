@@ -21,4 +21,26 @@ class Project(models.Model):
             str: self.name.
 
         """
+        return f"{self.name} - {self.pk}"
+
+
+class Scene(models.Model):
+    name = models.CharField(null=False, blank=False, max_length=500)
+    project = models.ForeignKey("Project", on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        """Get url for user's detail view.
+        Returns:
+            str: URL for project detail.
+
+        """
+        return reverse("projects:scene_detail", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        """Get str ref for model title
+
+        Returns:
+            str: self.name.
+
+        """
         return self.name

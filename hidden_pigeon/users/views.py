@@ -1,37 +1,17 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import render
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
-from django.views.generic import RedirectView, UpdateView
+from django.views.generic import RedirectView
 
 User = get_user_model()
 
 
 def user_detail_view(request, username):
 
-    this_user = User.objects.get(username="lance")
+    this_user = User.objects.get(username=username)
 
-    return (request, "./templates/users/user_detail.html", {"object": this_user})
-
-
-class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-
-    model = User
-    fields = ["name"]
-    success_message = _("Information successfully updated")
-
-    def get_success_url(self):
-        assert (
-            self.request.user.is_authenticated
-        )  # for mypy to know that the user is authenticated
-        return self.request.user.get_absolute_url()
-
-    def get_object(self):
-        return self.request.user
-
-
-user_update_view = UserUpdateView.as_view()
+    return render(request, "../templates/users/user_detail.html", {"object": this_user})
 
 
 class UserRedirectView(LoginRequiredMixin, RedirectView):

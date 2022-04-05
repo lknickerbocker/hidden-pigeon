@@ -1,0 +1,10 @@
+<div id="project-{{project.pk}}">
+    <h1><span hx-get="{% url 'projects:expanded_project' project.pk %}"
+        hx-trigger="click"
+        hx-target="#project-{{project.pk}}"
+        hx-swap="outerHTML"
+        >-</span>{{project.name}}</h1>
+    {% for scene in scenes  %}
+    <p>{{scene.name}}</p>
+    {% endfor %}
+</div>

@@ -11,3 +11,8 @@ This project uses docker.
 
     $ sudo docker-compose -f local.yml up --build
     $ sudo docker-compose -f local.yml run --rm django python manage.py createsuperuser
+
+# TESTING
+
+    $ docker-compose -f local.yml run --rm django coverage run -m pytest
+    $ docker-compose -f local.yml run --rm django coverage html
